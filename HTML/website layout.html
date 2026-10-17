@@ -1,0 +1,146 @@
+<!--this program has code for website layout which can used as reference to create a lay out-->
+<!doctype html>
+<html>
+    <head>
+        <title>sodhi ramayanam</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            *{
+    box-sizing:border-box;
+}
+
+header{
+    background-color:grey;
+    text-align:center;
+    padding:25px;
+}
+.navbar{
+    background-color:black;
+    height:50px;
+    
+}
+body{
+    margin:0px;
+}
+main{
+
+}
+aside{
+    width:20%;
+    float:left;
+    padding:10px;
+}
+section{
+    width:40%;
+    float:left;
+    padding:10px;
+}
+article{
+    width:40%;
+    float:left;
+    padding:10px;
+}
+footer{
+    background-color:grey;
+    text-align:center;
+    padding:25px;
+    display:block;
+    clear:both;
+}
+
+--in mobile screens you cant display information side by side so when the dispaly
+is less than 600 px we make the below three tags appear one below another instead of side by side
+you can test as i normally the window of chrome is less than
+@media screen and (max-width:600px){
+    aside,section,article{
+        width:100%;
+    }
+}
+        </style>
+    </head>
+    <body>
+       <header>header</header>
+
+       <nav class="navbar"></nav>
+
+       <main>
+            <Aside>
+                <h2>this is aside</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui amet laboriosam ullam! Vel molestiae, possimus amet totam praesentium facilis earum ullam, repellat quidem voluptatibus, laboriosam accusantium. Minus amet eligendi modi?</p>
+            </Aside>
+            <section>
+                <h2>this is section</h2>
+                p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui amet laboriosam ullam! Vel molestiae, possimus amet totam praesentium facilis earum ullam, repellat quidem voluptatibus, laboriosam accusantium. Minus amet eligendi modi?</p>
+                p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui amet laboriosam ullam! Vel molestiae, possimus amet totam praesentium facilis earum ullam, repellat quidem voluptatibus, laboriosam accusantium. Minus amet eligendi modi?</p>
+
+            </section>
+            <Article>
+                <h2>this is article</h2>
+                p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui amet laboriosam ullam! Vel molestiae, possimus amet totam praesentium facilis earum ullam, repellat quidem voluptatibus, laboriosam accusantium. Minus amet eligendi modi?</p>
+                p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui amet laboriosam ullam! Vel molestiae, possimus amet totam praesentium facilis earum ullam, repellat quidem voluptatibus, laboriosam accusantium. Minus amet eligendi modi?</p>
+                p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui amet laboriosam ullam! Vel molestiae, possimus amet totam praesentium facilis earum ullam, repellat quidem voluptatibus, laboriosam accusantium. Minus amet eligendi modi?</p>
+            </Article>
+            
+       </main>
+
+       <footer>
+        <h2>footer</h2>
+       </footer>
+    </body>
+    
+</html>
+
+
+<!--
+*{
+    box-sizing:border-box;
+}
+
+header{
+    background-color:grey;
+    text-align:center;
+    padding:25px;
+}
+.navbar{
+    background-color:black;
+    height:50px;
+    
+}
+body{
+    margin:0px;
+}
+main{
+
+}
+aside{
+    width:20%;
+    float:left;
+    padding:10px;
+}
+section{
+    width:40%;
+    float:left;
+    padding:10px;
+}
+article{
+    width:40%;
+    float:left;
+    padding:10px;
+}
+footer{
+    background-color:grey;
+    text-align:center;
+    padding:25px;
+    display:block;
+    clear:both;
+}
+
+--in mobile screens you cant display information side by side so when the dispaly
+is less than 600 px we make the below three tags appear one below another instead of side by side
+you can test as i normally the window of chrome is less than
+@media screen and (max-width:600px){
+    aside,section,article{
+        width:100%;
+    }
+}
+-->

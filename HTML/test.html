@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>nothing</title>
+  </head>
+  <body>
+    <h1 id="output">default</h1>
+    <lable>enter the digit in the input box</lable>
+    <input id="data" />
+    <button onclick="change()">click for output</button>
+    <script>
+      function change() {
+        let data = document.getElementById("data").value;
+        switch (data) {
+          case "rock":
+            document.getElementById("output").textContent = "Rock is selected";
+            break;
+          case "paper":
+            document.getElementById("output").textContent = "paperis selected";
+            break;
+          case "scissors":
+            document.getElementById("output").textContent =
+              "kathiri is selected";
+            break;
+          default:
+            document.getElementById("output").textContent =
+              "enter a valid ra munda";
+        }
+      }
+    </script>
+  </body>
+</html>

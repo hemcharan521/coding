@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <script>
+      function get() {
+        let ans = document.forms[0].addr.value;
+        if (ans === "yes") {
+          let address = document.getElementById("t1").value;
+          document.getElementById("t2").value = `${address}`;
+        } else {
+          document.getElementById("t2").value = ``;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <h1 style="color: aqua">enter your present address</h1>
+
+      <textarea id="t1" style="width: 200px; height: 200px"></textarea>
+
+      <h1>is your present address same as permanent address</h1>
+      <label>
+        yes
+        <input type="radio" value="yes" name="addr" onClick="get()" />
+      </label>
+      <br />
+
+      <label>
+        no
+        <input type="radio" value="no" name="addr" onClick="get()" />
+      </label>
+
+      <br />
+
+      <textarea
+        id="t2"
+        style="width: 200px; height: 200px"
+        onClick="get"
+      ></textarea>
+    </form>
+  </body>
+</html>

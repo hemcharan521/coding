@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head> </head>
+  <body>
+    <form>
+      <label>enter your name</label>
+      <input type="text" id="name" />
+
+      <label>enter you date of birth</label>
+      <input type="text" id="dob" />
+
+      <label>enter your email address</label>
+      <input type="text" id="email" />
+
+      <p id="nameDisplay"></p>
+      <p id="dobDisplay"></p>
+      <p id="emailDisplay"></p>
+    </form>
+
+    <button type="button" onClick="verify()">proceed</button>
+
+    <script>
+      function verify() {
+        let name = document.getElementById("name").value;
+        let dob = document.getElementById("dob").value;
+        let email = document.getElementById("email").value;
+
+        let nameDisplay = document.getElementById("nameDisplay");
+        let dobDisplay = document.getElementById("dobDisplay");
+        let emailDisplay = document.getElementById("emailDisplay");
+
+        let namePattern = /^[A-Z][A-Za-z]{0,19}$/;
+        let dobPattern = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}$/;
+
+        if (namePattern.test(name)) {
+          nameDisplay.innerHTML = "your name is correct";
+        } else {
+          nameDisplay.textContent = "your name is incorrect";
+        }
+
+        if (dobPattern.test(dob)) {
+          dobDisplay.textContent = "your dob is correct";
+        } else {
+          dobDisplay.textContent = "your dob is incorrect";
+        }
+      }
+    </script>
+  </body>
+</html>

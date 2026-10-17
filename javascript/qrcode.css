@@ -1,0 +1,23 @@
+body {
+  background-color: rgba(0, 255, 47, 0.373);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 30vh;
+}
+input {
+  display: block;
+  width: 500px;
+  border-radius: 5px;
+  border: none;
+  margin: 10px;
+  padding: 5px;
+}
+button {
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  height: 35px;
+  padding: 10px;
+}

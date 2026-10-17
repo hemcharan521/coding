@@ -1,0 +1,138 @@
+<!--this program has everything possible in html-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>just testing</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            padding: 30px;
+        }
+
+        form {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color:yellow;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input[type="submit"] {
+            background-color: green;
+            color: rgb(15, 53, 188);
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        input[type="reset"] {
+            background-color: red;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: darkgreen;
+        }
+
+        input[type="reset"]:hover {
+            background-color: darkred;
+        }
+        #username{
+            background-color:yellow;
+        }
+        
+    </style>
+    </head>
+    <body>
+        <form method="get"  enctype="multipart/form-data"><!--when the form has large data enctype multipple can break it down and reassemeble it for easier access-->
+            <!--method is of two types get is visible and post is private-->
+            <label for="username">username:</label>
+            <input type="text" id="username" placeholder="enter chey ra" ><br>
+
+            <label for="password">password</label>
+            <input type="password" id="password" placeholder="enter password" ><br>
+
+            <lable for="emil">email</lable>
+            <input type="emil" id="email" placeholder="enter a email"><br>
+            
+            <label>phone</label>
+            <input type="tel" placeholder="enter phone number"  pattern="[0-9]{5}-[0-9]{5}"><br>
+            
+            <label for="bday">birth</label>
+            <input type="date" id ="bday" placeholder="enter birth day"><br>
+
+            <label >quantity</label>
+            <input type="number" min="0" max="100"><br>
+
+            <label for="job">job</label>
+
+            <label for="singer">singer</label>
+            <input type="radio" id="singer" value="singer" name="job">
+
+            <label for="dancer">dancer</label>
+            <input type="radio" id="dancer" value="dancer" name = "job">
+
+            <label for="actor">actor</label>
+            <input type="radio" id="actor" value="actor" name = "job">
+
+            <label for="pilot">pilot</label>
+            <input type="radio" id="pilot" value="pilot" name = "job"><br>
+
+            <label for="chaduvu">chaduvu</label>
+            <select id="chaduvu">
+                <option value="10th">10th</option>
+                <option value="inter">inter</option>
+                <option value="btech">btech</option>
+            </select>  <br>
+
+            <label for="hobbies"><b>hobbies</b></label><br>
+
+            <label for="eating">eating</label>
+            <input type="checkbox" id="eating"><br>
+
+            <label for="sleeping">sleeping</label>
+            <input type="checkbox" id="sleeping"><br>
+
+            <label for="repeating">eating</label>
+            <input type="checkbox" id="repeating"><br>
+
+            <label for="sodhi">sodhi : </label>
+            <textarea id="sodhi" cols="10" rows="3" ></textarea><br>
+
+            <label for="file">give me a file</label>
+            <input type="file" id="file" accept="image/png"><br>
+            <input type="reset">
+            <input type="submit">
+        </form>
+    </body>
+</html>

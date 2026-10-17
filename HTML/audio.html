@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class Timetable</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    p.sub {
+      text-align: center;
+      color: gray;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #c0c0c0;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    thead th {
+      background-color: #1a56a0;
+      color: white;
+      font-weight: bold;
+    }
+
+    .time-col {
+      background-color: #f0f4ff;
+      color: #1a3a6e;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f9f9f9;
+    }
+
+    .break-row td {
+      background-color: #fff8e1;
+      color: #7a5c00;
+      font-style: italic;
+    }
+
+    /* subject colors */
+    .math    { background-color: #e8f0fe; color: #1a3a6e; }
+    .science { background-color: #e6f4ea; color: #1a5c2a; }
+    .english { background-color: #fce8e6; color: #7a1a0f; }
+    .history { background-color: #fef3e2; color: #7a4f00; }
+    .pe      { background-color: #f3e8fd; color: #4a1a7a; }
+    .cs      { background-color: #e8faf5; color: #0f5c46; }
+    .free    { background-color: #f5f5f5; color: #999; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <h2>Class Timetable — Grade 10A</h2>
+  <p class="sub">Academic year 2025–26 | Room 204</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time-col">8:00 – 8:45</td>
+        <td class="math">Mathematics</td>
+        <td class="english">English</td>
+        <td class="science">Science</td>
+        <td class="math">Mathematics</td>
+        <td class="history">History</td>
+      </tr>
+      <tr>
+        <td class="time-col">8:45 – 9:30</td>
+        <td class="science">Science</td>
+        <td class="math">Mathematics</td>
+        <td class="english">English</td>
+        <td class="cs">Computer Science</td>
+        <td class="math">Mathematics</td>
+      </tr>
+      <tr class="break-row">
+        <td class="time-col">9:30 – 9:45</td>
+        <td colspan="5">Short break</td>
+      </tr>
+      <tr>
+        <td class="time-col">9:45 – 10:30</td>
+        <td class="history">History</td>
+        <td class="science">Science</td>
+        <td class="math">Mathematics</td>
+        <td class="english">English</td>
+        <td class="science">Science</td>
+      </tr>
+      <tr>
+        <td class="time-col">10:30 – 11:15</td>
+        <td class="english">English</td>
+        <td class="cs">Computer Science</td>
+        <td class="history">History</td>
+        <td class="science">Science</td>
+        <td class="cs">Computer Science</td>
+      </tr>
+      <tr class="break-row">
+        <td class="time-col">11:15 – 12:00</td>
+        <td colspan="5">Lunch break</td>
+      </tr>
+      <tr>
+        <td class="time-col">12:00 – 12:45</td>
+        <td class="pe">Physical Education</td>
+        <td class="history">History</td>
+        <td class="cs">Computer Science</td>
+        <td class="pe">Physical Education</td>
+        <td class="english">English</td>
+      </tr>
+      <tr>
+        <td class="time-col">12:45 – 1:30</td>
+        <td class="cs">Computer Science</td>
+        <td class="pe">Physical Education</td>
+        <td class="pe">Physical Education</td>
+        <td class="history">History</td>
+        <td class="free">Free Period</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <title>sodhi gang</title>
+
+    <style>
+      body {
+        background-color: rgb(195, 249, 249);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+      }
+      #container {
+        border: 2px solid black;
+        max-width: 250px;
+      }
+      button {
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+        font-size: 30px;
+      }
+      button:hover {
+        background-color: antiquewhite;
+      }
+      #bottom {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px;
+        background-color: rgb(41, 40, 40);
+        border: none;
+      }
+      input {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        overflow: hidden;
+        box-sizing: border-box;
+        background-color: rgb(82, 80, 80);
+        font-size: 30px;
+        color: white;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <input id="inputs" />
+      <div id="bottom">
+        <button onclick="inpute(1)">1</button>
+        <button onclick="inpute(2)">2</button>
+        <button onclick="inpute(3)">3</button>
+        <button onclick="inpute(4)">4</button>
+        <button onclick="inpute(5)">5</button>
+        <button onclick="inpute(6)">6</button>
+        <button onclick="inpute(7)">7</button>
+        <button onclick="inpute(8)">8</button>
+        <button onclick="inpute(9)">9</button>
+        <button onclick="inpute(0)">0</button>
+        <button onclick="inpute('+')">+</button>
+        <button onclick="inpute('-')">-</button>
+        <button onclick="inpute('/')">"/"</button>
+        <button onclick="inpute('*')">"*"</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="clears()">C</button>
+      </div>
+    </div>
+    <script>
+      const inputs = document.getElementById("inputs");
+
+      function inpute(nums) {
+        inputs.value += nums;
+      }
+
+      function clears() {
+        inputs.value = "";
+      }
+      function calculate() {
+        try {
+          inputs.value = eval(inputs.value);
+        } catch (error) {
+          inputs.value = "error";
+        }
+      }
+    </script>
+  </body>
+</html>

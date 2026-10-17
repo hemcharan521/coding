@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <title>sodhi gang</title>
+    <style>
+       {
+        font: sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+      }
+      h1 {
+        text-align: center;
+      }
+
+      input {
+        width: 100px;
+      }
+      #cont {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 4px solid black;
+        padding: 10px;
+        gap: 10px;
+        background-color: rgba(232, 10, 173, 0.001);
+      }
+      button {
+        background-color: rgba(168, 250, 4, 0.863);
+        color: rgb(220, 17, 172);
+        float: right;
+      }
+      #innercont {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+      }
+      img {
+        display: flex;
+        gap: 1px;
+        width: 50px;
+        height: 50px;
+      }
+      #images {
+        display: flex;
+        flex-wrap: wrap; /* wraps to next line if too many dice */
+        gap: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="cont">
+      <h1>dice roller</h1>
+      <label>enter no of dice :</label>
+      <div id="innercont">
+        <input id="dice" />
+        <button onclick="roll()">submit</button>
+      </div>
+      <div id="result"></div>
+      <div id="images"></div>
+      <div id="sum"></div>
+    </div>
+    <script>
+      const dice = document.getElementById("dice");
+      const result = document.getElementById("result");
+      const images = document.getElementById("images");
+      const sum = document.getElementById("sum");
+      const values = [];
+      const dimages = [];
+      let sums = 0;
+      function roll() {
+        const value = Number(dice.value);
+        dimages.length = 0;
+        values.length = 0;
+
+        for (let i = 0; i < value; i++) {
+          values[i] = Math.floor(Math.random() * 6 + 1);
+          if (values[i] === 1) {
+            dimages[i] = `<img src="bommalu/one.png">`;
+          }
+          if (values[i] === 2) {
+            dimages[i] = `<img src="bommalu/two.png">`;
+          }
+          if (values[i] === 3) {
+            dimages[i] = `<img src="bommalu/three.png">`;
+          }
+          if (values[i] === 4) {
+            dimages[i] = `<img src="bommalu/four.png">`;
+          }
+          if (values[i] === 5) {
+            dimages[i] = `<img src="bommalu/five.png">`;
+          }
+          if (values[i] === 6) {
+            dimages[i] = `<img src="bommalu/six.png">`;
+          }
+          sums = sums + values[i];
+        }
+        result.textContent = `dice : ${values.join(", ")}`;
+        images.innerHTML = dimages.join("");
+        sum.textContent = `sum is ${sums}`;
+        sums = 0;
+      }
+    </script>
+  </body>
+</html>

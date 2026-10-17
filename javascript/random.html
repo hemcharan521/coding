@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <style>
+      h1 {
+      }
+      color: red;
+      font-size: 100px;
+    </style>
+  </head>
+  <body>
+    <form>enter you name:<input type="text" id="t" onkeyup="a()" /></form>
+    <h1 id="s"></h1>
+    <script>
+      function a() {
+        var v = document.getElementById("t").value;
+        document.getElementById("s").innerHTML = v;
+      }
+    </script>
+  </body>
+</html>

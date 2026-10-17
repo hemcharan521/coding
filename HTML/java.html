@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>internal and external javascript example</title>
+        <!--javascript example-->
+        <script>
+    function showinternalmessage()
+    {
+        document.getElementById("internal").innerHTML = 
+        "This message is from internal JavaScript!";
+    }
+        </script>
+        <!-- external javascript file-->
+         <script src="script.js"></script>
+
+    </head>
+    <body>
+        <h2>embedding javascript in a webpage</h2>
+        <!--internal js button-->
+        <button onclick="showinternalmessage()">click for internal JS</button>
+        <p id="internal"> </p>
+        <br><br>
+
+        <button onclick="showexternalmessage()">click for external js</button>
+        <p id="external"></p>
+    </body>
+</html>

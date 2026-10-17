@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      img {
+        height: 100px;
+      }
+      #images {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+      }
+      #headings {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        margin: none;
+      }
+      #result {
+        color: green;
+        font-size: 25px;
+      }
+
+      body {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="headings">
+      <h1>scissor</h1>
+      <h1>rock</h1>
+      <h1>paper</h1>
+    </div>
+    <div id="images">
+      <img id="scissors" onclick="game(`scissors`)" src="bommalu/scissor.jpg" />
+      <img id="rock" onclick="game(`rock`)" src="bommalu/rock.jpg" />
+      <img id="paper" onclick="game(`paper`)" src="bommalu/paper.png" />
+    </div>
+    <div id="choice">
+      <h1 id="player"></h1>
+      <h1 id="computer"></h1>
+    </div>
+    <div id="result"></div>
+    <div id="scores">
+      <h1 id="playerscore"></h1>
+      <h1 id="computerscore"></h1>
+    </div>
+    <script>
+      const choices = ["rock", "paper", "scissors"];
+      const computer = document.getElementById("computer");
+
+      const result = document.getElementById("result");
+      const player = document.getElementById("player");
+      const cscore = document.getElementById("computerscore");
+      const pscore = document.getElementById("playerscore");
+      let playerscore = 0;
+      let computerscore = 0;
+
+      function game(playerchoice) {
+        const compchoice = choices[Math.floor(Math.random() * 3)];
+        computer.textContent = `computer : ${compchoice}`;
+        player.textContent = `player : ${playerchoice}`;
+        if (playerchoice === compchoice) {
+          result.textContent = " tie ayindhi dunnapothu";
+        } else {
+          switch (playerchoice) {
+            case "rock":
+              result.textContent =
+                compchoice === "scissors"
+                  ? "nuvvu gelichinavu pandi"
+                  : "nuvvu vodipoyinavu gaadidha";
+              break;
+            case "paper":
+              result.textContent =
+                compchoice === "rock"
+                  ? "nuvvu gelichinavu pandi"
+                  : "nuvvu vodipoyinavu gaadidha";
+              break;
+            case "scissors":
+              result.textContent =
+                compchoice === "paper"
+                  ? "nuvvu gelichinavu pandi"
+                  : "nuvvu vodipoyinavu gaadidha";
+          }
+        }
+        if (result.textContent === "you win") {
+          playerscore++;
+        } else if (result.textContent === "you lost") {
+          computerscore++;
+        }
+        cscore.textContent = `computer score : ${computerscore}`;
+        pscore.textContent = `player score : ${playerscore}`;
+      }
+    </script>
+  </body>
+</html>

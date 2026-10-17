@@ -1,0 +1,67 @@
+body {
+  font-family: arial, sans-serif;
+  background-color: hsl(0, 0%, 90%);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: Center;
+  padding: 10px;
+}
+
+input {
+  font-size: 20px;
+  border-radius: 10px;
+  width: 200px;
+  margin: 5px;
+}
+#submit {
+  height: 30px;
+  background-color: hsl(160, 100%, 55%);
+  border-radius: 5px;
+  width: 100px;
+  font-weight: bold;
+  color: hsl(0, 0%, 95%);
+  margin: 5px;
+}
+
+#submit:hover {
+  background-color: hsl(160, 100%, 40%);
+}
+
+.card {
+  background: linear-gradient(rgb(127, 235, 127), pink);
+  padding: 40px;
+  box-shadow: 2px 2px 5px hsl(0, 0%, 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+}
+h1 {
+  margin-top: 0px;
+}
+p {
+  font-size: 20px;
+  margin: 5px;
+}
+.weatherEmoji {
+  margin: 0;
+  font-size: 50px;
+}
+.humidityDisplay {
+  font-size: 20px;
+  font-weight: bold;
+}
+.tempDisplay {
+  font-size: 25px;
+  font-weight: bold;
+}
+.descDisplay {
+  font-size: 30px;
+  font-weight: bold;
+}
+.errorDisplay {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+}
