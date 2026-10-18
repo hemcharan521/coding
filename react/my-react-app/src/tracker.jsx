@@ -7,7 +7,7 @@ import { Bar, Doughnut, Line } from "react-chartjs-2";
 
 function track() {
   const [activeSelect, setActiveSelect] = useState(false);
-  const [activeCaret, setActiveCaret] = useState(false);
+
   const [activeMenu, setActiveMenu] = useState(false);
   const [expenseType, setExpenseType] = useState("groceries");
   const [transactionAmount, setTransactionAmount] = useState(0);
@@ -24,17 +24,17 @@ function track() {
     "clothes",
     "travel",
   ];
-
+  //for the dropdown menu
   const toggle = () => {
     setActiveSelect(!activeSelect);
-    setActiveCaret(!activeCaret);
+
     setActiveMenu(!activeMenu);
   };
 
   const selectOption = (category) => {
     setExpenseType(category);
     setActiveSelect(false);
-    setActiveCaret(false);
+
     setActiveMenu(false);
   };
 
@@ -97,6 +97,7 @@ function track() {
     <>
       <div className="container">
         <label>enter the date of transaction</label>
+
         <input
           className="transactionDate"
           value={transactionDate}
@@ -104,7 +105,9 @@ function track() {
           type="date"
           placeholder="enter the date of transaction here"
         ></input>
+
         <label>enter the amount</label>
+
         <input
           type="number"
           className="amount"
@@ -114,13 +117,13 @@ function track() {
         ></input>
 
         <label>select the type of expense here</label>
+
         <div className="dropdown">
           <div
             className={activeSelect ? "select-clicked" : "select"}
             onClick={toggle}
           >
             <span>{expenseType}</span>
-            <div className={activeCaret ? "caret-rotate" : "caret"}></div>
           </div>
           <ul className={activeMenu ? "menu active" : "menu"}>
             {categories.map((cat) => (
@@ -149,7 +152,7 @@ function track() {
           submit
         </button>
       </div>
-
+      {/*everything below is the bar charts*/}
       <div className="chart">
         <Doughnut
           data={{
@@ -171,7 +174,6 @@ function track() {
           }}
         />
       </div>
-
       <div className="chart">
         <Bar
           data={{
