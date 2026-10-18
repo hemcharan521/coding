@@ -6,13 +6,14 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 
 function track() {
+  //below belong to dropdown and are false at start
   const [activeSelect, setActiveSelect] = useState(false);
-
   const [activeMenu, setActiveMenu] = useState(false);
+  //below belong to input data we give
   const [expenseType, setExpenseType] = useState("groceries");
   const [transactionAmount, setTransactionAmount] = useState(0);
   const [transactionDate, setTransactionDate] = useState("");
-
+  //to store multiple transactions
   const [transactions, setTransactions] = useState([]);
   const categoryTotals = {};
   const dateTotals = {};
@@ -52,7 +53,7 @@ function track() {
       amount: transactionAmount,
       expense: expenseType,
     };
-
+    //unpacking is a must
     setTransactions([...transactions, newTransaction]);
   }
 
@@ -93,6 +94,12 @@ function track() {
 
   addCategoryTotal(transactions);
   addDateTotal(transactions);
+
+  //a classname for puure styling
+  // value to set what we see
+  //onchange to trigger -> set function -> display in microseconds
+  //type for type
+  //variable for value
   return (
     <>
       <div className="container">
@@ -117,14 +124,18 @@ function track() {
         ></input>
 
         <label>select the type of expense here</label>
+        {/*the dropdown covers both the input tag and the menu*/}
 
         <div className="dropdown">
+          {/*active select onclicked just adds background color to input label
+          notice that span is  inside the active select */}
           <div
             className={activeSelect ? "select-clicked" : "select"}
             onClick={toggle}
           >
             <span>{expenseType}</span>
           </div>
+          {/*the below ul purely controls the menu the below concept is render lists in bro code*/}
           <ul className={activeMenu ? "menu active" : "menu"}>
             {categories.map((cat) => (
               <li
@@ -141,6 +152,8 @@ function track() {
         <p>the type of expense is : {expenseType}</p>
         <p>the amount is : {transactionAmount}</p>
         <p>the date of transaction is : {transactionDate}</p>
+
+        {/*this thing displays and  vanishes a transaction when you click on the displayed version both from charts and transaciton history*/}
         <ul>
           {transactions.map((transaction, index) => (
             <li key={index} onClick={() => handleRemoveTransaction(index)}>
