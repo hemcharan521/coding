@@ -185,7 +185,7 @@ function track() {
         </button>
       </div>
       {/*everything below is the bar charts*/}
-      <div className="chart">
+      <div className={activeChart ? "chart-clicked" : "chart"}>
         <Doughnut
           data={{
             labels: Object.keys(categoryTotals),
