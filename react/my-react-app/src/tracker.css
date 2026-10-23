@@ -4,57 +4,131 @@ body {
   margin: 0;
   justify-content: center;
   min-width: 100%;
+  background: hsl(65, 43%, 94%);
 }
 .container {
   display: flex;
   margin: 10px;
-  gap: 10px;
   flex-direction: column;
   min-width: 100%;
 }
+
+h1 {
+  color: hsl(203, 7%, 24%);
+  font-family: arial;
+}
 .amount {
   margin: 10px;
-  border: 2px black solid;
+  border: 2px hsl(203, 7%, 24%) solid;
   border-radius: 0.53em;
   padding: 10px;
+  background: hsl(8, 80%, 56%);
+  color: hsl(65, 43%, 94%);
+  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.5);
 }
-.transactionDate {
-  margin: 10px;
-  border: 2px black solid;
+.amount:hover {
+  background: hsl(8, 80%, 62%);
+  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.9);
+}
+/*check the primereact date picker(valla website) + claude for the classes(i would say mandatory if didnt understand)*/
+.p-datepicker {
   border-radius: 0.53em;
   padding: 5px;
 }
+.p-datepicker-calendar {
+  font-size: 15px;
+}
+/*the dates are stored like a table not mentioned in primereact but was given by claude
+  <td><span>date<span><td> this is the strucutre a date is stored in calender that is below two things work
+  */
+.p-datepicker table td {
+  padding: 0.4rem !important;
+}
+
+.p-datepicker table td > span {
+  width: 1.6rem;
+  height: 1.4rem;
+}
+/*header has teh top part like the year month arrows*/
+.p-datepicker-header {
+  padding: 4px;
+}
+/*button bar has bottom like today and clear*/
+.p-datepicker-buttonbar {
+  padding: 4px;
+}
+.transactionDate:hover {
+  background: hsl(8, 80%, 62%);
+  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.9);
+}
+.submit {
+  margin: 10px;
+  border: 2px hsl(203, 7%, 24%) solid;
+  border-radius: 0.53em;
+  padding: 5px;
+  background: hsl(203, 7%, 24%);
+  box-shadow: 0 0 10px hsla(203, 7%, 24%, 0.5);
+  color: hsl(65, 43%, 94%);
+}
+
+.submit:hover {
+  background: hsl(8, 80%, 56%);
+  box-shadow: 0 0 10px hsl(8, 80%, 56%);
+}
+
+.show {
+  margin: 10px;
+  border: 2px hsl(203, 7%, 24%) solid;
+  border-radius: 0.53em;
+  padding: 5px;
+  background: hsl(203, 7%, 24%);
+  box-shadow: 0 0 10px hsla(203, 7%, 24%, 0.5);
+  color: hsl(65, 43%, 94%);
+}
+
+.show:hover {
+  background: hsl(8, 80%, 56%);
+  box-shadow: 0 0 10px hsl(8, 80%, 56%);
+}
+
 .dropdown {
   position: relative;
   margin: 10px;
+  border-radius: 0.53em;
 }
 
 .select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px black solid;
+  border: 2px hsl(203, 7%, 24%) solid;
   border-radius: 0.53em;
   padding: 10px;
+  background: hsl(8, 80%, 56%);
+  color: hsl(65, 43%, 94%);
+  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.5);
 }
+
+.select:hover {
+  background: hsl(8, 80%, 62%);
+  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.9);
+}
+
 .select-clicked {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px black solid;
+  border: 2px hsl(203, 7%, 24%) solid;
   border-radius: 0.53em;
   padding: 10px;
-  box-shadow: 0 0 0 2px rgb(6, 223, 6);
-}
-.select:hover {
-  background: yellow;
+  box-shadow: 0 0 0 2px hsl(203, 7%, 24%);
 }
 
 .menu {
   list-style: none;
   padding: 10px 10px;
-  border: 1px solid;
-  box-shadow: 0 5px 10px;
+  border: 1px solid hsl(203, 7%, 24%);
+  box-shadow: 0 5px 10px hsla(203, 7%, 24%, 0.4);
   border-radius: 10px;
   position: absolute;
   top: 50px;
@@ -62,7 +136,8 @@ body {
   width: 100%;
   transform: translateX(-50%);
   opacity: 0;
-  background-color: hsl(180, 100%, 50%);
+  background-color: hsl(203, 7%, 24%);
+  color: hsl(65, 43%, 94%);
   transition: 0.2s;
   display: none;
 }
@@ -75,18 +150,21 @@ body {
 }
 
 .menu li:hover {
-  background: hsl(160, 100%, 60%);
+  background: hsl(8, 80%, 56%);
 }
 
 .menu.active {
   display: block;
   opacity: 1;
 }
-.submit:hover {
-  background: aquamarine;
-}
+
 .chart {
-  border: 2px solid black;
+  border: 2px solid hsl(203, 7%, 24%);
   width: 300px;
   height: 300px;
+  display: none;
+}
+
+.chart-clicked {
+  display: block;
 }

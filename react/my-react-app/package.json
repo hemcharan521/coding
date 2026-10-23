@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "chart.js": "^4.5.1",
+    "primeicons": "^8.0.2",
+    "primereact": "^10.9.9",
     "prop-types": "^15.8.1",
     "react": "^19.2.7",
     "react-chartjs-2": "^5.3.1",

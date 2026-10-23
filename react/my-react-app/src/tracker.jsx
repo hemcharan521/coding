@@ -5,10 +5,13 @@ import { useState } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 
+import { Calendar } from "primereact/calendar";
+
 function track() {
   //below belong to dropdown and are false at start
   const [activeSelect, setActiveSelect] = useState(false);
   const [activeMenu, setActiveMenu] = useState(false);
+  const [activeChart, setActiveChart] = useState(false);
   //below belong to input data we give
   const [expenseType, setExpenseType] = useState("groceries");
   const [transactionAmount, setTransactionAmount] = useState(0);
@@ -47,9 +50,10 @@ function track() {
   }
 
   function handleTransactionsChange() {
+    if (!transactionDate) return;
     console.log("clicked");
     const newTransaction = {
-      date: transactionDate,
+      date: transactionDate.toLocaleDateString("en-CA"),
       amount: transactionAmount,
       expense: expenseType,
     };
@@ -92,6 +96,10 @@ function track() {
     }
   }
 
+  function handleCharts() {
+    setActiveChart(!activeChart);
+  }
+
   addCategoryTotal(transactions);
   addDateTotal(transactions);
 
@@ -102,21 +110,31 @@ function track() {
   //variable for value
   return (
     <>
+      <h1>finance money tracker</h1>
       <div className="container">
         <label>enter the date of transaction</label>
 
-        <input
+        {/* <input
           className="transactionDate"
           value={transactionDate}
           onChange={handleTransactionDate}
           type="date"
           placeholder="enter the date of transaction here"
-        ></input>
+        ></input> */}
+
+        <Calendar
+          dateFormat="dd/mm/yy"
+          value={transactionDate}
+          onChange={(e) => setTransactionDate(e.value)}
+          showIcom
+          showButtonBar
+        />
 
         <label>enter the amount</label>
 
         <input
-          type="number"
+          type="text"
+          inputmode="numeric"
           className="amount"
           value={transactionAmount}
           onChange={handleTransactionAmountChange}
@@ -149,10 +167,6 @@ function track() {
           </ul>
         </div>
 
-        <p>the type of expense is : {expenseType}</p>
-        <p>the amount is : {transactionAmount}</p>
-        <p>the date of transaction is : {transactionDate}</p>
-
         {/*this thing displays and  vanishes a transaction when you click on the displayed version both from charts and transaciton history*/}
         <ul>
           {transactions.map((transaction, index) => (
@@ -161,8 +175,13 @@ function track() {
             </li>
           ))}
         </ul>
+
         <button className="submit" onClick={handleTransactionsChange}>
           submit
+        </button>
+
+        <button className="show" onClick={handleCharts}>
+          show
         </button>
       </div>
       {/*everything below is the bar charts*/}
@@ -187,7 +206,7 @@ function track() {
           }}
         />
       </div>
-      <div className="chart">
+      <div className={activeChart ? "chart-clicked" : "chart"}>
         <Bar
           data={{
             labels: Object.keys(dateTotals),
