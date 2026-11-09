@@ -276,22 +276,25 @@ function track() {
           </div>
         )}
       </div>
-      <div className="delete-itemList">
-        {/* div for whole delete list */}
-        <h2>click on a transaction to delete it</h2>
-        <ol className="transaction-list">
-          {transactions.map((transaction, index) => (
-            <div className="delete-item">
-              {/* div for each individual item */}
-              <li key={index} onClick={() => handleRemoveTransaction(index)}>
-                {transaction.date.toLocaleDateString("en-CA")}{" "}
-                {transaction.amount} {transaction.expense}{" "}
-                {/* those {" "} are for empty space */}
-              </li>
-            </div>
-          ))}
-        </ol>
-      </div>
+      {/* using conditional rendering so it only runs when there are transactions */}
+      {transactions.length > 0 && (
+        <div className="delete-itemList">
+          {/* div for whole delete list */}
+          <h2>click on a transaction to delete it</h2>
+          <ol className="transaction-list">
+            {transactions.map((transaction, index) => (
+              <div className="delete-item">
+                {/* div for each individual item */}
+                <li key={index} onClick={() => handleRemoveTransaction(index)}>
+                  {transaction.date.toLocaleDateString("en-CA")}{" "}
+                  {transaction.amount} {transaction.expense}{" "}
+                  {/* those {" "} are for empty space */}
+                </li>
+              </div>
+            ))}
+          </ol>
+        </div>
+      )}
     </>
   );
 }
