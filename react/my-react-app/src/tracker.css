@@ -42,7 +42,7 @@ h1 {
   <td><span>date<span><td> this is the strucutre a date is stored in calender that is below two things work
   */
 .p-datepicker table td {
-  padding: 0.4rem !important;
+  padding: 0.4rem;
 }
 
 .p-datepicker table td > span {
@@ -160,11 +160,74 @@ h1 {
 
 .chart {
   border: 2px solid hsl(203, 7%, 24%);
-  width: 300px;
-  height: 300px;
+
   display: none;
 }
-
+.bar {
+  width: 100%;
+}
+.dough {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto; /*without this line the dough is fixed to left insted of center */
+}
 .chart-clicked {
   display: block;
+  width: 100%;
+  background: hsl(65, 43%, 98%);
+  border-radius: 0.53em;
+  padding: 15px;
+  box-shadow: 0 0 15px hsla(203, 7%, 24%, 0.3);
+}
+.slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+.slider h2 {
+  margin: 0;
+}
+
+.transaction-list {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/*  
+.delete-item {
+  background: hsl(65, 43%, 94%);
+  margin: 4px;
+  padding: 5px;
+  box-shadow: 0 0 15px hsla(203, 7%, 24%, 0.3);
+} */
+
+.delete-itemList {
+  background: hsl(65, 43%, 98%);
+  border: 2px solid hsl(203, 7%, 24%);
+  border-radius: 0.53em;
+  padding: 10px;
+  margin: 10px;
+}
+
+.delete-itemList h2 {
+  color: hsl(203, 7%, 24%);
+  font-size: 1em;
+  text-align: center;
+  margin: 10px;
+}
+
+.delete-item {
+  background: hsl(0, 0%, 100%);
+  color: hsl(203, 7%, 24%);
+
+  border-radius: 5px;
+  padding: 8px 8px;
+
+  cursor: pointer;
+}
+
+.delete-item:hover {
+  background: hsl(8, 80%, 72%);
 }

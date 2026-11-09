@@ -1,10 +1,9 @@
 //preceeded variables with transactions for variables for clarity with no preceedings in the transactions array of objects
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Chart as ChartJS } from "chart.js/auto";
-import { Bar, Doughnut, Line } from "react-chartjs-2";
-
+import { Bar, Doughnut } from "react-chartjs-2";
 import { Calendar } from "primereact/calendar";
 
 function track() {
@@ -14,12 +13,30 @@ function track() {
   const [activeChart, setActiveChart] = useState(false);
   //below belong to input data we give
   const [expenseType, setExpenseType] = useState("groceries");
-  const [transactionAmount, setTransactionAmount] = useState(0);
+  const [transactionAmount, setTransactionAmount] = useState();
   const [transactionDate, setTransactionDate] = useState("");
   //to store multiple transactions
-  const [transactions, setTransactions] = useState([]);
+  //update:added locale storage for future use
+  //concept of locale storage is we save then retrievd
+  //generally locale storage takes and returns strings so we convert both before sending and recieveing
+  //but it doesnt turn a string date to normla date so we use map to do it
+  //here we use ... operator open it then write date: new date(t.date) here it reads string and returns the exact date for it
+  //date() can take multiple things there like pure numbers, the date as string or numbers(2026,02,09)
+  //note:the code inside useEffect runs only once means only when page is loaded
+  const [transactions, setTransactions] = useState(() => {
+    const saved = localStorage.getItem("transactions");
+    //if it is first tiem saved is empty so empty array
+    if (!saved) return [];
+    const list = JSON.parse(saved);
+    return list.map((t) => ({ ...t, date: new Date(t.date) }));
+  });
+
+  useEffect(() => {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [transactions]);
+
   const categoryTotals = {};
-  const dateTotals = {};
+  const dateTotals = [0, 0, 0, 0, 0];
   const categories = [
     "groceries",
     "medical",
@@ -28,32 +45,38 @@ function track() {
     "clothes",
     "travel",
   ];
+  // below variables to make the calender take date only up to 1 month
+  let today = new Date();
+  let maxDate = today;
+  let minDate = new Date(
+    today.getFullYear(),
+    today.getMonth() - 1,
+    today.getDate(),
+  );
+  //below lines for fotmob style slides
+  const [slideIndex, setSlideIndex] = useState(0);
   //for the dropdown menu
   const toggle = () => {
     setActiveSelect(!activeSelect);
 
     setActiveMenu(!activeMenu);
   };
-
+  //for dropdown removed caret coz it made me confuse
   const selectOption = (category) => {
     setExpenseType(category);
     setActiveSelect(false);
-
     setActiveMenu(false);
   };
 
   function handleTransactionAmountChange(event) {
     setTransactionAmount(event.target.value);
   }
-  function handleTransactionDate(event) {
-    setTransactionDate(event.target.value);
-  }
 
   function handleTransactionsChange() {
     if (!transactionDate) return;
     console.log("clicked");
     const newTransaction = {
-      date: transactionDate.toLocaleDateString("en-CA"),
+      date: transactionDate,
       amount: transactionAmount,
       expense: expenseType,
     };
@@ -80,18 +103,21 @@ function track() {
       }
     }
   }
-
+  //dateobject - dateobject = milliseconds that is how js works with dates and that is why the code below works
   function addDateTotal(transactions) {
+    let todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
     for (let i = 0; i < transactions.length; i++) {
       let transaction = transactions[i];
       let amount = Number(transaction.amount);
-      let expense = transaction.expense;
-      let date = transaction.date;
 
-      if (dateTotals[date]) {
-        dateTotals[date] += amount;
-      } else {
-        dateTotals[date] = amount;
+      let date = transaction.date;
+      const milliSecondsOfDay = 1000 * 60 * 60 * 24;
+      const daysAgo = (todayDate - date) / milliSecondsOfDay;
+      const bucket = Math.floor(daysAgo / 7);
+
+      if (bucket >= 0 && bucket <= 4) {
+        dateTotals[bucket] += amount;
       }
     }
   }
@@ -99,6 +125,24 @@ function track() {
   function handleCharts() {
     setActiveChart(!activeChart);
   }
+  // slider functions
+  function leftSlide() {
+    if (slideIndex === 0) {
+      setSlideIndex(1);
+    } else {
+      setSlideIndex(slideIndex - 1);
+    }
+  }
+
+  function rightSlide() {
+    if (slideIndex === 1) {
+      setSlideIndex(0);
+    } else {
+      setSlideIndex(slideIndex + 1);
+    }
+  }
+
+  const chartTitle = slideIndex === 0 ? "by category" : "by week";
 
   addCategoryTotal(transactions);
   addDateTotal(transactions);
@@ -114,31 +158,24 @@ function track() {
       <div className="container">
         <label>enter the date of transaction</label>
 
-        {/* <input
-          className="transactionDate"
-          value={transactionDate}
-          onChange={handleTransactionDate}
-          type="date"
-          placeholder="enter the date of transaction here"
-        ></input> */}
-
         <Calendar
           dateFormat="dd/mm/yy"
           value={transactionDate}
           onChange={(e) => setTransactionDate(e.value)}
-          showIcom
+          showIcon
           showButtonBar
+          minDate={minDate}
+          maxDate={maxDate}
         />
 
         <label>enter the amount</label>
 
         <input
           type="text"
-          inputmode="numeric"
+          inputMode="numeric"
           className="amount"
           value={transactionAmount}
           onChange={handleTransactionAmountChange}
-          placeholder="enter the transaciton amount here"
         ></input>
 
         <label>select the type of expense here</label>
@@ -168,13 +205,6 @@ function track() {
         </div>
 
         {/*this thing displays and  vanishes a transaction when you click on the displayed version both from charts and transaciton history*/}
-        <ul>
-          {transactions.map((transaction, index) => (
-            <li key={index} onClick={() => handleRemoveTransaction(index)}>
-              {transaction.date} {transaction.amount} {transaction.expense}
-            </li>
-          ))}
-        </ul>
 
         <button className="submit" onClick={handleTransactionsChange}>
           submit
@@ -186,46 +216,81 @@ function track() {
       </div>
       {/*everything below is the bar charts*/}
       <div className={activeChart ? "chart-clicked" : "chart"}>
-        <Doughnut
-          data={{
-            labels: Object.keys(categoryTotals),
-            datasets: [
-              {
-                label: "transaction history",
-                data: Object.values(categoryTotals),
-                backgroundColor: [
-                  "#ff6384",
-                  "#36a2eb",
-                  "#ffce56",
-                  "#4bc0c0",
-                  "#9966ff",
-                  "#ff9f40",
+        {/* below we use conditonal rendering among it we use shorter version of ternary opertor
+          coz here we only have show or nothing no two things  */}
+        <div className="slider">
+          <button onClick={leftSlide}>&larr;</button>
+          <h2>{chartTitle}</h2>
+          <button onClick={rightSlide}>&rarr;</button>
+        </div>
+        {slideIndex === 0 && (
+          <div className="dough">
+            <Doughnut
+              //two {{}} one lets you write jsx other let you write object
+              data={{
+                labels: Object.keys(categoryTotals),
+                datasets: [
+                  {
+                    data: Object.values(categoryTotals),
+                    backgroundColor: [
+                      "#ff6384",
+                      "#36a2eb",
+                      "#ffce56",
+                      "#4bc0c0",
+                      "#9966ff",
+                      "#ff9f40",
+                    ],
+                  },
                 ],
-              },
-            ],
-          }}
-        />
+              }}
+            />
+          </div>
+        )}
+
+        {slideIndex === 1 && (
+          <div className="bar">
+            <Bar
+              data={{
+                labels: [
+                  "this week",
+                  "1 week ago",
+                  "2 weeks ago",
+                  "3 weeks ago",
+                  "4 weeks ago",
+                ],
+                datasets: [
+                  {
+                    data: dateTotals,
+                    backgroundColor: [
+                      "#ff6384",
+                      "#36a2eb",
+                      "#ffce56",
+                      "#4bc0c0",
+                      "#9966ff",
+                      "#ff9f40",
+                    ],
+                  },
+                ],
+              }}
+            />
+          </div>
+        )}
       </div>
-      <div className={activeChart ? "chart-clicked" : "chart"}>
-        <Bar
-          data={{
-            labels: Object.keys(dateTotals),
-            datasets: [
-              {
-                label: "transaction history",
-                data: Object.values(dateTotals),
-                backgroundColor: [
-                  "#ff6384",
-                  "#36a2eb",
-                  "#ffce56",
-                  "#4bc0c0",
-                  "#9966ff",
-                  "#ff9f40",
-                ],
-              },
-            ],
-          }}
-        />
+      <div className="delete-itemList">
+        {/* div for whole delete list */}
+        <h2>click on a transaction to delete it</h2>
+        <ol className="transaction-list">
+          {transactions.map((transaction, index) => (
+            <div className="delete-item">
+              {/* div for each individual item */}
+              <li key={index} onClick={() => handleRemoveTransaction(index)}>
+                {transaction.date.toLocaleDateString("en-CA")}{" "}
+                {transaction.amount} {transaction.expense}{" "}
+                {/* those {" "} are for empty space */}
+              </li>
+            </div>
+          ))}
+        </ol>
       </div>
     </>
   );
