@@ -10,10 +10,10 @@ function track() {
   //below belong to dropdown and are false at start
   const [activeSelect, setActiveSelect] = useState(false);
   const [activeMenu, setActiveMenu] = useState(false);
-  const [activeChart, setActiveChart] = useState(false);
+
   //below belong to input data we give
   const [expenseType, setExpenseType] = useState("groceries");
-  const [transactionAmount, setTransactionAmount] = useState();
+  const [transactionAmount, setTransactionAmount] = useState(""); //0 pedithe default 0 vasthundi which looks ugly
   const [transactionDate, setTransactionDate] = useState("");
   //to store multiple transactions
   //update:added locale storage for future use
@@ -22,7 +22,7 @@ function track() {
   //but it doesnt turn a string date to normla date so we use map to do it
   //here we use ... operator open it then write date: new date(t.date) here it reads string and returns the exact date for it
   //date() can take multiple things there like pure numbers, the date as string or numbers(2026,02,09)
-  //note:the code inside useEffect runs only once means only when page is loaded
+  //note:the code inside useEffect runs only once means only when page is loaded and also when the dependence elemnt changes which is transaction array here in this case
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem("transactions");
     //if it is first tiem saved is empty so empty array
@@ -73,15 +73,32 @@ function track() {
   }
 
   function handleTransactionsChange() {
-    if (!transactionDate) return;
-    console.log("clicked");
-    const newTransaction = {
-      date: transactionDate,
-      amount: transactionAmount,
-      expense: expenseType,
-    };
-    //unpacking is a must
-    setTransactions([...transactions, newTransaction]);
+    // input validation done below
+    //return makes the function stop which in return means the transaction is not added and alert displays the message
+    if (!transactionDate) {
+      alert("enter the date of transaction");
+      return;
+    }
+    if (!transactionAmount) {
+      alert("enter the amount of transaction");
+      return;
+    }
+    // using Number function becuase normal one doesnot count 0.5 which is valid(if dollars) it also rejects negative
+    if (Number(transactionAmount) > 0) {
+      const newTransaction = {
+        date: transactionDate,
+        amount: transactionAmount,
+        expense: expenseType,
+      };
+      //unpacking is a must
+      setTransactions([...transactions, newTransaction]);
+      //after successful submit clearing the form
+      setTransactionAmount("");
+      setTransactionDate("");
+    } else {
+      alert("enter a valid number");
+      return;
+    }
   }
 
   function handleRemoveTransaction(index) {
@@ -90,6 +107,11 @@ function track() {
     );
   } //here we are using updater function but directly setting the using setTransations alos works but using updater functions is safer so we  update teh array that is last updated and upto date
 
+  function handleRemoveAll() {
+    if (window.confirm("delete all transactions?")) {
+      setTransactions([]);
+    }
+  }
   function addCategoryTotal(transactions) {
     for (let i = 0; i < transactions.length; i++) {
       let transaction = transactions[i];
@@ -122,9 +144,6 @@ function track() {
     }
   }
 
-  function handleCharts() {
-    setActiveChart(!activeChart);
-  }
   // slider functions
   function leftSlide() {
     if (slideIndex === 0) {
@@ -171,8 +190,8 @@ function track() {
         <label>enter the amount</label>
 
         <input
-          type="text"
-          inputMode="numeric"
+          type="number"
+          inputMode="decimal"
           className="amount"
           value={transactionAmount}
           onChange={handleTransactionAmountChange}
@@ -209,13 +228,9 @@ function track() {
         <button className="submit" onClick={handleTransactionsChange}>
           submit
         </button>
-
-        <button className="show" onClick={handleCharts}>
-          show
-        </button>
       </div>
       {/*everything below is the bar charts*/}
-      <div className={activeChart ? "chart-clicked" : "chart"}>
+      <div className={transactions.length > 0 ? "chart-clicked" : "chart"}>
         {/* below we use conditonal rendering among it we use shorter version of ternary opertor
           coz here we only have show or nothing no two things  */}
         <div className="slider">
@@ -283,16 +298,26 @@ function track() {
           <h2>click on a transaction to delete it</h2>
           <ol className="transaction-list">
             {transactions.map((transaction, index) => (
-              <div className="delete-item">
-                {/* div for each individual item */}
-                <li key={index} onClick={() => handleRemoveTransaction(index)}>
-                  {transaction.date.toLocaleDateString("en-CA")}{" "}
-                  {transaction.amount} {transaction.expense}{" "}
-                  {/* those {" "} are for empty space */}
-                </li>
-              </div>
+              //there used to be a div here for each melement but removed and placed the class name in the li itself
+              //because it overlapped with numbers given by ul
+              //i think iam dumbass becuase why the fuck i need div in first place when li acts as single element and group of elements
+              <li
+                className="delete-item"
+                key={index}
+                onClick={() => handleRemoveTransaction(index)}
+              >
+                {/* for spaces */}
+                {transaction.date.toLocaleDateString("en-CA")}
+                &nbsp;&nbsp;&nbsp;
+                {transaction.amount}
+                &nbsp;&nbsp;&nbsp;
+                {transaction.expense}
+              </li>
             ))}
           </ol>
+          <button className="submit delete-all" onClick={handleRemoveAll}>
+            delete all
+          </button>
         </div>
       )}
     </>
