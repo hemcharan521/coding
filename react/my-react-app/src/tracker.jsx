@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Calendar } from "primereact/calendar";
+import ChartDataLabels from "chartjs-plugin-datalabels"; //imported for showing percentage on doughnut which is not default available in chart js
+//but is available as a plugin built by other developers
 
 function track() {
   let today = new Date(); //this variable is used 2-3 times so declared top
@@ -13,6 +15,8 @@ function track() {
   const [activeMenu, setActiveMenu] = useState(false);
 
   //below belong to input data we give
+  //not event.target.value the thing we read to get input always gives string so we have to convert amount beofre using
+  //type=number only restricts from typing alphabets
   const [expenseType, setExpenseType] = useState("groceries");
   const [transactionAmount, setTransactionAmount] = useState(""); //0 pedithe default 0 vasthundi which looks ugly
   const [transactionDate, setTransactionDate] = useState("");
@@ -268,6 +272,37 @@ function track() {
                   },
                 ],
               }}
+              //options is like settings of chart
+              //there are two plugins one inside options one outside like date,options
+              //outer one used to use third party plugin developed by other developers
+              //inside one used to edit those plugins + default ones like toolkit which is already given by chartjs
+              //here 1st i uesd third party one which shows percentage on the chart so i deleted and edited the kit itself which shows when hovered
+              options={{
+                plugins: {
+                  //tooltip is the box we see when we hover over it
+                  tooltip: {
+                    //callbacks means exact same meaning they are called by other function here in this case called by chartjs when building the toolkit
+                    //inside toolkit we have three things title : title,label : the data we show ,footer the end
+                    //we only edit lable so we go inside label and run that function
+                    //since we dont touch title and footer they stay defalut which footer is empty and title is category name
+                    callbacks: {
+                      // title: () => {
+                      //   return "bullshit";
+                      // },//this is just to test the fucntion when remove comments it replaces the category name with bullshit
+                      label: (context) => {
+                        const value = context.parsed;
+                        const totalAmount = transactions.reduce(
+                          (sum, transaction) =>
+                            sum + Number(transaction.amount),
+                          0,
+                        ); //sum is accumulator and 0 is its starting value
+                        const percentage = (value / totalAmount) * 100;
+                        return value + "(" + percentage.toFixed(1) + "%)";
+                      },
+                    },
+                  },
+                },
+              }}
             />
           </div>
         )}
@@ -296,6 +331,10 @@ function track() {
                     ],
                   },
                 ],
+              }}
+              //the below lines are there becuase wihtout them it shows color=undefined and usually that feautre is only needed for dought nut only bar chat has these lines
+              options={{
+                plugins: { legend: { display: false } },
               }}
             />
           </div>
