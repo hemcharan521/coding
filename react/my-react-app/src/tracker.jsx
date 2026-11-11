@@ -7,6 +7,7 @@ import { Bar, Doughnut } from "react-chartjs-2";
 import { Calendar } from "primereact/calendar";
 
 function track() {
+  let today = new Date(); //this variable is used 2-3 times so declared top
   //below belong to dropdown and are false at start
   const [activeSelect, setActiveSelect] = useState(false);
   const [activeMenu, setActiveMenu] = useState(false);
@@ -46,13 +47,14 @@ function track() {
     "travel",
   ];
   // below variables to make the calender take date only up to 1 month
-  let today = new Date();
+
   let maxDate = today;
   let minDate = new Date(
     today.getFullYear(),
     today.getMonth() - 1,
     today.getDate(),
   );
+
   //below lines for fotmob style slides
   const [slideIndex, setSlideIndex] = useState(0);
   //for the dropdown menu
@@ -108,10 +110,18 @@ function track() {
   } //here we are using updater function but directly setting the using setTransations alos works but using updater functions is safer so we  update teh array that is last updated and upto date
 
   function handleRemoveAll() {
+    // window.confirm becuase one click everything wipes
     if (window.confirm("delete all transactions?")) {
       setTransactions([]);
     }
   }
+
+  useEffect(() => {
+    setTransactions((transactions) =>
+      transactions.filter((transaction) => transaction.date >= minDate),
+    );
+  }, []); //empty [] means runs on page load
+  //empty [] becuase if you put transaction there even time that array changes this function runs which changes the transaction which in return runs the effect so like a infinite loop
   function addCategoryTotal(transactions) {
     for (let i = 0; i < transactions.length; i++) {
       let transaction = transactions[i];

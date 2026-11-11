@@ -1,10 +1,43 @@
+/*  */
+
+/* ===== PALETTE: change only these values to try a new theme =====
+   Active: Neon Sunshine Bliss (navy / cream / yellow)
+
+   Turquoise theme values, to swap in:
+   --primary: #333333;  --primary-rgb: 51, 51, 51;  --primary-light: #4d4d4d;
+   --bg: #fcfaf9;       --card: #ffffff;
+   --accent: #48e5c2;   --accent-rgb: 72, 229, 194; --accent-light: #71ebd0;
+*/
+/* using variables because it is much easier to test themes other wise  you have to roughly chnage 30 lines */
+
+/* --primary (navy): the title, the borders on the inputs, buttons and boxes, the dark buttons (submit, show), the dropdown menu background, and all text on yellow or light backgrounds.
+--primary-light: only the submit button when you hover over it.
+--bg (cream): the page background, plus the text on the dark buttons and in the dropdown menu.
+--card: only the chart card and the delete list background.
+--accent (yellow): the amount box, the category box, the calendar icon button, the show button on hover, and the menu items on hover.
+--accent-light: the hover shade for the amount box, the category box, and the delete items.
+--primary-rgb and --accent-rgb: only inside the shadows. They have no other use.
+
+straight from claude*/
+/* colors are not in hsl but were still according to preference like decreasing 6% etc like brocode */
+:root {
+  --primary: #393e41; /* borders, title, dark buttons, menu */
+  --primary-rgb: 57, 62, 65; /* same color as numbers, for shadows */
+  --primary-light: #474e52; /* dark button hover */
+  --bg: #f6f7eb; /* page background, text on dark buttons */
+  --card: #fcfcf8; /* chart card and delete list background */
+  --accent: #e94f37; /* amount box, category box, highlights */
+  --accent-rgb: 233, 79, 55;
+  --accent-light: #ec6551; /* accent hover */
+}
+
 body {
   min-height: 100vh;
   display: flex;
   margin: 0;
   justify-content: center;
   min-width: 100%;
-  background: hsl(65, 43%, 94%);
+  background: var(--bg);
 }
 .container {
   display: flex;
@@ -14,17 +47,17 @@ body {
 }
 
 h1 {
-  color: hsl(203, 7%, 24%);
+  color: var(--primary);
   font-family: arial;
 }
 .amount {
   margin: 10px;
-  border: 2px hsl(203, 7%, 24%) solid;
+  border: 2px var(--primary) solid;
   border-radius: 0.53em;
   padding: 10px;
-  background: hsl(8, 80%, 56%);
-  color: hsl(65, 43%, 94%);
-  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.5);
+  background: var(--accent);
+  color: var(--primary);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.5);
 }
 /* the below two classes remove the up and down arrow for amount input label */
 .amount::-webkit-outer-spin-button,
@@ -33,13 +66,19 @@ h1 {
   margin: 0;
 }
 .amount:hover {
-  background: hsl(8, 80%, 62%);
-  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.9);
+  background: var(--accent-light);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.9);
 }
 /*check the primereact date picker(valla website) + claude for the classes(i would say mandatory if didnt understand)*/
 .p-datepicker {
   border-radius: 0.53em;
   padding: 5px;
+}
+/* calendar icon button, recolored to match the palette */
+.p-calendar .p-datepicker-trigger {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--primary);
 }
 .p-datepicker-calendar {
   font-size: 15px;
@@ -64,37 +103,38 @@ h1 {
   padding: 4px;
 }
 .transactionDate:hover {
-  background: hsl(8, 80%, 62%);
-  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.9);
+  background: var(--accent-light);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.9);
 }
 .submit {
   margin: 10px;
-  border: 2px hsl(203, 7%, 24%) solid;
+  border: 2px var(--primary) solid;
   border-radius: 0.53em;
   padding: 5px;
-  background: hsl(203, 7%, 24%);
-  box-shadow: 0 0 10px hsla(203, 7%, 24%, 0.5);
-  color: hsl(65, 43%, 94%);
+  background: var(--primary);
+  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+  color: var(--bg);
 }
 
 .submit:hover {
-  background: hsl(8, 80%, 56%);
-  box-shadow: 0 0 10px hsl(8, 80%, 56%);
+  background: var(--primary-light);
+  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.884);
 }
 
 .show {
   margin: 10px;
-  border: 2px hsl(203, 7%, 24%) solid;
+  border: 2px var(--primary) solid;
   border-radius: 0.53em;
   padding: 5px;
-  background: hsl(203, 7%, 24%);
-  box-shadow: 0 0 10px hsla(203, 7%, 24%, 0.5);
-  color: hsl(65, 43%, 94%);
+  background: var(--primary);
+  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+  color: var(--bg);
 }
 
 .show:hover {
-  background: hsl(8, 80%, 56%);
-  box-shadow: 0 0 10px hsl(8, 80%, 56%);
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  color: var(--primary);
 }
 
 .dropdown {
@@ -107,34 +147,34 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px hsl(203, 7%, 24%) solid;
+  border: 2px var(--primary) solid;
   border-radius: 0.53em;
   padding: 10px;
-  background: hsl(8, 80%, 56%);
-  color: hsl(65, 43%, 94%);
-  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.5);
+  background: var(--accent);
+  color: var(--primary);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.5);
 }
 
 .select:hover {
-  background: hsl(8, 80%, 62%);
-  box-shadow: 0 0 15px hsla(8, 80%, 56%, 0.9);
+  background: var(--accent-light);
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.9);
 }
 
 .select-clicked {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px hsl(203, 7%, 24%) solid;
+  border: 2px var(--primary) solid;
   border-radius: 0.53em;
   padding: 10px;
-  box-shadow: 0 0 0 2px hsl(203, 7%, 24%);
+  box-shadow: 0 0 0 2px var(--primary);
 }
 
 .menu {
   list-style: none;
   padding: 10px 10px;
-  border: 1px solid hsl(203, 7%, 24%);
-  box-shadow: 0 5px 10px hsla(203, 7%, 24%, 0.4);
+  border: 1px solid var(--primary);
+  box-shadow: 0 5px 10px rgba(var(--primary-rgb), 0.4);
   border-radius: 10px;
   position: absolute;
   top: 50px;
@@ -142,8 +182,8 @@ h1 {
   width: 100%;
   transform: translateX(-50%);
   opacity: 0;
-  background-color: hsl(203, 7%, 24%);
-  color: hsl(65, 43%, 94%);
+  background-color: var(--primary);
+  color: var(--bg);
   transition: 0.2s;
   display: none;
 }
@@ -156,7 +196,8 @@ h1 {
 }
 
 .menu li:hover {
-  background: hsl(8, 80%, 56%);
+  background: var(--accent);
+  color: var(--primary);
 }
 
 .menu.active {
@@ -165,7 +206,7 @@ h1 {
 }
 
 .chart {
-  border: 2px solid hsl(203, 7%, 24%);
+  border: 2px solid var(--primary);
 
   display: none;
 }
@@ -181,11 +222,11 @@ h1 {
 .chart-clicked {
   display: block;
   width: 100%;
-  background: hsl(65, 43%, 98%);
+  background: var(--card);
   border-radius: 0.53em;
   padding: 15px;
 
-  box-shadow: 0 0 15px hsla(203, 7%, 24%, 0.3);
+  box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.3);
 }
 .slider {
   display: flex;
@@ -212,15 +253,15 @@ h1 {
 } */
 
 .delete-itemList {
-  background: hsl(65, 43%, 98%);
-  border: 2px solid hsl(203, 7%, 24%);
+  background: var(--card);
+  border: 2px solid var(--primary);
   border-radius: 0.53em;
   padding: 10px;
   margin: 10px;
 }
 
 .delete-itemList h2 {
-  color: hsl(203, 7%, 24%);
+  color: var(--primary);
   font-size: 1em;
   text-align: center;
   margin: 10px;
@@ -228,7 +269,7 @@ h1 {
 
 .delete-item {
   background: hsl(0, 0%, 96%);
-  color: hsl(203, 7%, 24%);
+  color: var(--primary);
   margin: 5px;
   border-radius: 5px;
   padding: 8px 8px;
@@ -236,11 +277,13 @@ h1 {
 }
 
 .delete-item:hover {
-  background: hsl(8, 80%, 62%);
-  box-shadow: 0 0 5px hsla(8, 80%, 56%, 0.9);
+  background: var(--accent-light);
+  box-shadow: 0 0 5px rgba(var(--accent-rgb), 0.9);
 }
 
 .delete-all {
   display: block;
   margin: 10px auto;
 }
+
+/*  */
