@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Calendar } from "primereact/calendar";
-import ChartDataLabels from "chartjs-plugin-datalabels"; //imported for showing percentage on doughnut which is not default available in chart js
-//but is available as a plugin built by other developers
+
 
 function track() {
   let today = new Date(); //this variable is used 2-3 times so declared top
